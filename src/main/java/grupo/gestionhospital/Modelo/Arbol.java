@@ -1,9 +1,14 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
+
+import grupo.gestionhospital.Modelo.NodoArbol;
 
 
 public class Arbol {
      private NodoArbol raizPtr;
+     private Paciente ultimoEncontrado; //para que cuando encuentre algo en 
+                                        //la opcion 3 del menu se pueda mostrar 
+                                        //los datos del encontrado
 
     public Arbol() {
         raizPtr = null;
@@ -18,24 +23,24 @@ public class Arbol {
     }
 
 
-    public void insertarNodo(int valor) {
-        raizPtr = insertarNodo(valor, raizPtr);
+    public void insertarNodo(Paciente paciente) {
+        raizPtr = insertarNodo(paciente , raizPtr);
     }
 
-    private NodoArbol insertarNodo(int valor, NodoArbol nodoPtr) {
+    private NodoArbol insertarNodo(Paciente paciente, NodoArbol nodoPtr) {
 
         if (nodoPtr == null) {
-            nodoPtr = new NodoArbol(valor);
-        } else if (valor < nodoPtr.getDato()) {
+            nodoPtr = new NodoArbol(paciente);
+        } else if (paciente.getIdPaciente() < nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setIzquierdoPtr(
-                    insertarNodo(valor, nodoPtr.getIzquierdoPtr())
+                    insertarNodo(paciente, nodoPtr.getIzquierdoPtr())
             );
-        } else if (valor > nodoPtr.getDato()) {
+        } else if (paciente.getIdPaciente() > nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setDerechoPtr(
-                    insertarNodo(valor, nodoPtr.getDerechoPtr())
+                    insertarNodo(paciente, nodoPtr.getDerechoPtr())
             );
         } else {
-            System.out.println("El valor " + valor + " ya existe en el árbol.");
+            System.out.println("El paciente con ID: " + paciente.getIdPaciente() + "ya existe en el arbol.");
         }
 
         return nodoPtr;
@@ -111,22 +116,26 @@ public class Arbol {
         System.out.print(nodoPtr.getDato() + " - ");
     }
 
-    public boolean busqueda(int x) {
-        return busqueda(x, raizPtr);
+    public boolean busqueda(int id) {
+        ultimoEncontrado = null;
+        return busqueda(id , raizPtr);
+        
     }
 
-    private boolean busqueda(int x, NodoArbol nodoPtr) {
+    private boolean busqueda(int id , NodoArbol nodoPtr) {
 
         if (nodoPtr == null) {
             return false;
-        } else if (x < nodoPtr.getDato()) {
-            return busqueda(x, nodoPtr.getIzquierdoPtr());
-        } else if (x > nodoPtr.getDato()) {
-            return busqueda(x, nodoPtr.getDerechoPtr());
+        } else if (id  < nodoPtr.getDato().getIdPaciente()) {
+            return busqueda(id , nodoPtr.getIzquierdoPtr());
+        } else if (id > nodoPtr.getDato().getIdPaciente()) {
+            return busqueda(id , nodoPtr.getDerechoPtr());
         } else {
+            this.ultimoEncontrado = nodoPtr.getDato();
             return true;
         }
     }
+    
 
     public NodoArbol buscaMenor() {
         return buscaMenor(raizPtr);
@@ -158,24 +167,24 @@ public class Arbol {
         }
     }
 
-    public void eliminarPredecesor(int x) {
-        raizPtr = eliminarPredecesor(x, raizPtr);
+    public void eliminarPredecesor(Paciente paciente) {
+        raizPtr = eliminarPredecesor(paciente , raizPtr);
     }
 
-    private NodoArbol eliminarPredecesor(int x, NodoArbol nodoPtr) {
+    private NodoArbol eliminarPredecesor(Paciente paciente, NodoArbol nodoPtr) {
 
         if (nodoPtr == null) {
-            System.out.println("El valor " + x + " no existe en el árbol.");
+            System.out.println("El Id " + paciente.getIdPaciente() + " no existe en el árbol.");
             return null;
         }
 
-        if (x < nodoPtr.getDato()) {
+        if (paciente.getIdPaciente() < nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setIzquierdoPtr(
-                    eliminarPredecesor(x, nodoPtr.getIzquierdoPtr())
+                    eliminarPredecesor(paciente , nodoPtr.getIzquierdoPtr())
             );
-        } else if (x > nodoPtr.getDato()) {
+        } else if (paciente.getIdPaciente() > nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setDerechoPtr(
-                    eliminarPredecesor(x, nodoPtr.getDerechoPtr())
+                    eliminarPredecesor(paciente , nodoPtr.getDerechoPtr())
             );
         } else {
 
@@ -208,27 +217,27 @@ public class Arbol {
         return nodoPtr;
     }
 
-    public void eliminarSucesor(int x) {
-        raizPtr = eliminarSucesor(x, raizPtr);
+    public void eliminarSucesor(Paciente paciente) {
+        raizPtr = eliminarSucesor(paciente , raizPtr);
     }
 
-    private NodoArbol eliminarSucesor(int x, NodoArbol nodoPtr) {
+    private NodoArbol eliminarSucesor(Paciente paciente, NodoArbol nodoPtr) {
 
         if (nodoPtr == null) {
-            System.out.println("El valor " + x + " no existe en el árbol.");
+            System.out.println("El Id " + paciente.getIdPaciente() + " no existe en el árbol.");
             return null;
         }
 
-        if (x < nodoPtr.getDato()) {
+        if (paciente.getIdPaciente() < nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setIzquierdoPtr(
-                    eliminarSucesor(x, nodoPtr.getIzquierdoPtr())
+                    eliminarSucesor(paciente , nodoPtr.getIzquierdoPtr())
             );
-        } else if (x > nodoPtr.getDato()) {
+        } else if (paciente.getIdPaciente() > nodoPtr.getDato().getIdPaciente()) {
             nodoPtr.setDerechoPtr(
-                    eliminarSucesor(x, nodoPtr.getDerechoPtr())
+                    eliminarSucesor(paciente , nodoPtr.getDerechoPtr())
             );
         } else {
-
+ 
             // Caso 1: nodo hoja
             if (nodoPtr.getIzquierdoPtr() == null && nodoPtr.getDerechoPtr() == null) {
                 return null;
@@ -278,5 +287,11 @@ public class Arbol {
 
         return null;
     }
+
+    public Paciente getUltimoEncontrado() {
+        return ultimoEncontrado;
+    }
+    
+    
     
 }

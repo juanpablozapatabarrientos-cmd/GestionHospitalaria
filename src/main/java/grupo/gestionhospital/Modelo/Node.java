@@ -1,5 +1,5 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
 
 public class Node {
     private Object data;

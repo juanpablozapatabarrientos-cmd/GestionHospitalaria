@@ -1,5 +1,7 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
+
+import grupo.gestionhospital.Modelo.Node;
 
 public class List {
     private Node head;
@@ -27,6 +29,21 @@ public class List {
     public Node last() {
         return tail;
     }
+    
+    public void addFirst(Object e){
+        Node newNode = new Node(e);
+        
+        if(isEmpty()){
+            head = newNode;
+            tail = newNode;
+        }else{
+            newNode.setNext(head);
+            head = newNode;
+        }
+        
+        size++;
+    }
+    
 
     public void addLast(Object e) {
         Node newNode = new Node(e);
@@ -59,5 +76,22 @@ public class List {
 
         size--;
         return removed;
+    }
+    
+    public String showList() {
+        if (isEmpty()) {
+            System.out.println("[ Lista vacía ]");
+            return null;
+        }
+        
+        String resultado = "";
+        Node current = head;
+        while (current != null) {
+           resultado += "| " + current.getData() + " |";
+            current = current.getNext();
+        }
+        resultado += "-----";
+        
+        return resultado;
     }
 }

@@ -1,5 +1,5 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
 
 public abstract class Paciente {
     private int idPaciente;
@@ -57,7 +57,7 @@ public abstract class Paciente {
         this.telefonoPaciente = telefonoPaciente;
     }
     
-    public abstract void MostrarInformacion();
+    public abstract void mostrarInformacion();
     
     //Falta crear metodo abstracto "ToCsv"
     

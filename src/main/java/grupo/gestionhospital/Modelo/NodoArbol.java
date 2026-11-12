@@ -1,23 +1,23 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
 
 public class NodoArbol {
 
-    private int dato;
+    private Paciente dato ;
     private NodoArbol izquierdoPtr;
     private NodoArbol derechoPtr;
 
-    public NodoArbol(int dato) {
+    public NodoArbol(Paciente dato) {
         this.dato = dato;
         this.izquierdoPtr = null;
         this.derechoPtr = null;
     }
 
-    public int getDato() {
+    public Paciente getDato() {
         return dato;
     }
 
-    public void setDato(int dato) {
+    public void setDato(Paciente dato) {
         this.dato = dato;
     }
 

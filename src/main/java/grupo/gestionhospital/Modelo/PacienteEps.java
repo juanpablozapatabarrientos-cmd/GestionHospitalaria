@@ -1,5 +1,7 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
+
+import grupo.gestionhospital.Modelo.Paciente;
 
 
 public class PacienteEps extends Paciente{
@@ -22,11 +24,15 @@ public class PacienteEps extends Paciente{
     }
     
     @Override
-    public void MostrarInformacion(){
+    public void mostrarInformacion(){
         System.out.println("-----------------------");
-        System.out.println("Informacion del paciente");
-        //Terminar el MostrarInformacion
-
+    System.out.println("Información del paciente (EPS)");
+    System.out.println("ID: " + getIdPaciente());
+    System.out.println("Nombre: " + getNombre() + " " + getApellido());
+    System.out.println("Edad: " + getEdad() + " años");
+    System.out.println("Teléfono: " + getTelefonoPaciente());
+    System.out.println("EPS: " + this.nombreEps);
+    System.out.println("-----------------------");
     }
     
 }

@@ -1,5 +1,7 @@
 
-package grupo.gestionhospital;
+package grupo.gestionhospital.Modelo;
+
+import grupo.gestionhospital.Modelo.Node;
 
 public class Queue {
     private List data;
