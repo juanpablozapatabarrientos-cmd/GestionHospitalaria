@@ -1,4 +1,3 @@
-
 package grupo.gestionhospital.Modelo;
 
 import grupo.gestionhospital.Modelo.Paciente;
@@ -21,22 +20,29 @@ public class PacienteSisben extends Paciente{
         return puntajeSisben;
     }
 
-    public void setPuntajeSisben(String nombreEps) {
-        this.puntajeSisben = nombreEps;
+    public void setPuntajeSisben(String puntajeSisben) {
+        this.puntajeSisben = puntajeSisben;
     }
     
     @Override
     public void mostrarInformacion(){
         System.out.println("-----------------------");
-    System.out.println("Información del paciente (EPS)");
-    System.out.println("ID: " + getIdPaciente());
-    System.out.println("Nombre: " + getNombre() + " " + getApellido());
-    System.out.println("Edad: " + getEdad() + " años");
-    System.out.println("Teléfono: " + getTelefonoPaciente());
-    System.out.println("EPS: " + this.puntajeSisben);
-    System.out.println("-----------------------");
+        System.out.println("Informacion del paciente (SISBEN)");
+        System.out.println("ID: " + getIdPaciente());
+        System.out.println("Nombre: " + getNombre() + " " + getApellido());
+        System.out.println("Edad: " + getEdad() + " anos");
+        System.out.println("Telefono: " + getTelefonoPaciente());
+        System.out.println("Puntaje Sisben: " + this.puntajeSisben);
+        System.out.println("-----------------------");
     }
     
-    
-    //Falta metodo override que se llama toCsv 
+    @Override
+    public String toCsv(){
+        return getIdPaciente() + "," + getNombre() + "," + getApellido() + "," + getEdad() + "," + getTelefonoPaciente() + "," + this.puntajeSisben;
+    }
+
+    @Override
+    public String toString(){
+        return "ID: " + getIdPaciente() + " | Nombre: " + getNombre() + " " + getApellido() + " | Edad: " + getEdad() + " | Telefono: " + getTelefonoPaciente() + " | Puntaje Sisben: " + this.puntajeSisben;
+    }
 }

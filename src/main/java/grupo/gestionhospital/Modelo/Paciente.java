@@ -1,4 +1,3 @@
-
 package grupo.gestionhospital.Modelo;
 
 public abstract class Paciente {
@@ -59,6 +58,6 @@ public abstract class Paciente {
     
     public abstract void mostrarInformacion();
     
-    //Falta crear metodo abstracto "ToCsv"
+    public abstract String toCsv();
     
 }
