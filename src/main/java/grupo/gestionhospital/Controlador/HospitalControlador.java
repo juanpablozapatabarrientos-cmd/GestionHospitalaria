@@ -15,11 +15,11 @@ public class HospitalControlador {
     
     public HospitalControlador(){
         this.listaEps = new List();
-        this. listaSisben = new List();
+        this.listaSisben = new List();
         this.arbolPacientes = new Arbol();
         this.colaPacientes = new Queue();
         this.pilaPacientes = new Stack();
-        this. consecutivoCitas = 1;
+        this.consecutivoCitas = 1;
         this.archivo = new Archivo();
     }
     
@@ -75,7 +75,7 @@ public class HospitalControlador {
     public Citas siguienteCita(){
         
         if(colaPacientes.isEmpty()){
-            System.out.println("No hay mas citas por atender. ");
+            System.out.println("No hay mas citas por atender.");
             return null;
         }
         
@@ -95,10 +95,43 @@ public class HospitalControlador {
     }
     
     public Paciente buscarPaciente(int id) {
-    if (arbolPacientes.busqueda(id)) {
-        return arbolPacientes.getUltimoEncontrado();
+        if (arbolPacientes.busqueda(id)) {
+            return arbolPacientes.getUltimoEncontrado();
+        }
+        return null;
     }
-    return null;
+
+    public boolean eliminarPaciente(int id) {
+        Paciente encontrado = buscarPaciente(id);
+        if (encontrado == null) {
+            System.out.println("No existe un paciente registrado con el ID " + id + ".");
+            return false;
+        }
+
+        if (colaPacientes.tieneCitaPendiente(id)) {
+            System.out.println("No se puede eliminar al paciente con ID " + id + " porque tiene una cita pendiente en la cola.");
+            return false;
+        }
+
+        arbolPacientes.eliminarPredecesor(encontrado);
+        boolean eliminado = listaEps.eliminarPorId(id);
+        if (!eliminado) {
+            listaSisben.eliminarPorId(id);
+        }
+        return true;
+    }
+
+    public void mostrarRecorridosArbol() {
+        if (arbolPacientes.esVacio()) {
+            System.out.println("El arbol de pacientes esta vacio.");
+            return;
+        }
+        System.out.println("Recorrido InOrden:");
+        arbolPacientes.inOrden();
+        System.out.println("Recorrido PreOrden:");
+        arbolPacientes.preOrden();
+        System.out.println("Recorrido PostOrden:");
+        arbolPacientes.postOrden();
     }
     
     public Citas ultimaAtencion(){
@@ -113,22 +146,19 @@ public class HospitalControlador {
     }
     
     public void historialAtendido(){
-       
         pilaPacientes.showStack();
     }
     
     public void citasPendientes(){
-        
         colaPacientes.showQueue();
-        
     }
     
     public void guardarPacientesEpsCSV() {
-    Archivo.guardarPacientesEPS(listaEps, "pacientes_eps.csv");
+        Archivo.guardarPacientesEPS(listaEps, "pacientes_eps.csv");
     }
     
     public void guardarPacientesSisbenCSV() {
-    Archivo.guardarPacientesSisben(listaSisben, "pacientes_Sisben.csv");
+        Archivo.guardarPacientesSisben(listaSisben, "pacientes_sisben.csv");
     }
 
 }

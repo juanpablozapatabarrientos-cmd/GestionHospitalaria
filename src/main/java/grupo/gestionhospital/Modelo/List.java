@@ -1,8 +1,6 @@
 
 package grupo.gestionhospital.Modelo;
 
-import grupo.gestionhospital.Modelo.Node;
-
 public class List {
     private Node head;
     private Node tail;
@@ -61,7 +59,7 @@ public class List {
 
     public Object removeFirst() {
         if (isEmpty()) {
-            System.out.println("La lista está vacía.");
+            System.out.println("La lista esta vacia.");
             return null;
         }
 
@@ -77,17 +75,48 @@ public class List {
         size--;
         return removed;
     }
+
+    public boolean eliminarPorId(int idPaciente) {
+        if (isEmpty()) {
+            return false;
+        }
+
+        Paciente primero = (Paciente) head.getData();
+        if (primero.getIdPaciente() == idPaciente) {
+            removeFirst();
+            return true;
+        }
+
+        Node anterior = head;
+        Node actual = head.getNext();
+
+        while (actual != null) {
+            Paciente p = (Paciente) actual.getData();
+            if (p.getIdPaciente() == idPaciente) {
+                anterior.setNext(actual.getNext());
+                if (actual == tail) {
+                    tail = anterior;
+                }
+                actual.setNext(null);
+                size--;
+                return true;
+            }
+            anterior = actual;
+            actual = actual.getNext();
+        }
+
+        return false;
+    }
     
     public String showList() {
         if (isEmpty()) {
-            System.out.println("[ Lista vacía ]");
-            return null;
+            return "[ Lista vacia ]";
         }
         
         String resultado = "";
         Node current = head;
         while (current != null) {
-           resultado += "| " + current.getData() + " |";
+            resultado += "| " + current.getData() + " |\n";
             current = current.getNext();
         }
         resultado += "-----";

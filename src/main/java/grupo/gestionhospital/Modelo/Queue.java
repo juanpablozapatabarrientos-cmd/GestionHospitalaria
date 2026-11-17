@@ -1,8 +1,6 @@
 
 package grupo.gestionhospital.Modelo;
 
-import grupo.gestionhospital.Modelo.Node;
-
 public class Queue {
     private List data;
 
@@ -24,7 +22,7 @@ public class Queue {
 
     public Object dequeue() {
         if (isEmpty()) {
-            System.out.println("La cola está vacía.");
+            System.out.println("La cola esta vacia.");
             return null;
         }
         return data.removeFirst();
@@ -32,7 +30,7 @@ public class Queue {
 
     public Object front() {
         if (isEmpty()) {
-            System.out.println("La cola está vacía.");
+            System.out.println("La cola esta vacia.");
             return null;
         }
         return data.first().getData();
@@ -40,7 +38,7 @@ public class Queue {
 
     public void showQueue() {
         if (isEmpty()) {
-            System.out.println("[ cola vacía ]");
+            System.out.println("[ cola vacia ]");
             return;
         }
 
@@ -61,4 +59,16 @@ public class Queue {
 
     showQueueRecursivo(current.getNext());
 }
+
+    public boolean tieneCitaPendiente(int idPaciente) {
+        Node current = data.first();
+        while (current != null) {
+            Citas cita = (Citas) current.getData();
+            if (cita.getIdPaciente() == idPaciente) {
+                return true;
+            }
+            current = current.getNext();
+        }
+        return false;
+    }
 }
