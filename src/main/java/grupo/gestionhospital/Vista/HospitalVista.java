@@ -37,6 +37,7 @@ public class HospitalVista {
             System.out.println("12. Guardar pacientes Sisben en CSV");
             System.out.println("Seleccione una opcion: ");
             option = sc.nextInt();
+            sc.nextLine();
             
             switch(option){
                 
@@ -48,12 +49,14 @@ public class HospitalVista {
                     String apellido = sc.nextLine();
                     System.out.println("Edad: ");
                     int edad = sc.nextInt();
+                    sc.nextLine();
                     System.out.println("Telefono: ");
                     String telefono = sc.nextLine();
                     System.out.println("Nombre de la EPS: ");
                     String nombreEps = sc.nextLine();
                     System.out.println("Id del paciente");
                     int id = sc.nextInt();
+                    sc.nextLine();
                     
                     boolean registrado = controlador.registrarPacienteEps(nombreEps, id, nombre, apellido, edad, telefono);
                     
@@ -66,19 +69,21 @@ public class HospitalVista {
                 case 2:
                     System.out.println("\n--- REGISTRO DE PACIENTE Sisben ---");
                     System.out.println("Nombre: "); 
-                    String puntajeSisben = sc.nextLine();
+                    String nombreS = sc.nextLine();
                     System.out.println("Apellido: ");
                     String apellidoS = sc.nextLine();
                     System.out.println("Edad: ");
                     int edadS = sc.nextInt();
+                    sc.nextLine();
                     System.out.println("Telefono: ");
                     String telefonoS = sc.nextLine();
-                    System.out.println("Nombre de la EPS: ");
-                    String nombreS = sc.nextLine();
+                    System.out.println("Puntaje del sisben : ");
+                    String puntajeSisben = sc.nextLine();
                     System.out.println("Id del paciente");
                     int idS = sc.nextInt();
+                    sc.nextLine();
                     
-                    registrado = controlador.registrarPacienteSisben(puntajeSisben , idS, nombreS, apellidoS, edadS, telefonoS);
+                    registrado = controlador.registrarPacienteSisben(puntajeSisben, idS, nombreS, apellidoS, edadS, telefonoS);
                     
                     if(registrado){
                         System.out.println("Paciente registrado exitosamente.");
@@ -115,6 +120,7 @@ public class HospitalVista {
                 case 6:
                     System.out.println("Ingrese el ID del paciente que desea agendar cita: ");
                     int idAgenda = sc.nextInt();
+                    sc.nextLine();
                     System.out.println("Ingrese la especialidad de la cita: ");
                     String especialidad = sc.nextLine();
                     
@@ -127,27 +133,29 @@ public class HospitalVista {
                     }
                     break;
      
-                case 7: 
+                case 7:
+                    Citas citaAtendida = controlador.siguienteCita();
+                    System.out.println("Continuando con la siguiente cita: ");
+                        System.out.println(citaAtendida);
                     break;
-                case 8: 
+                case 8:
+                    controlador.citasPendientes();
                     break;
-                case 9: 
+                case 9:
+                    controlador.ultimaAtencion();
                     break;
                 case 10:
+                    controlador.historialAtendido();
                     break;
                 case 11: 
+                    controlador.guardarPacientesEpsCSV();
                     break;
                 case 12: 
+                    controlador.guardarPacientesSisbenCSV();
                     break;
-            
-            
-        }
-            
-            
-            
+            }    
         }while(option != 0);
     }
-    
 }
 
 
