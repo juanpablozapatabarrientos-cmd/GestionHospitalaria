@@ -11,6 +11,7 @@ public class HospitalControlador {
     private Queue colaPacientes;
     private Stack pilaPacientes;
     private int consecutivoCitas;
+    private Archivo archivo;
     
     public HospitalControlador(){
         this.listaEps = new List();
@@ -19,6 +20,7 @@ public class HospitalControlador {
         this.colaPacientes = new Queue();
         this.pilaPacientes = new Stack();
         this. consecutivoCitas = 1;
+        this.archivo = new Archivo();
     }
     
     public boolean registrarPacienteEps(String nombreEps,int idPaciente, String nombre, String apellido,
@@ -99,11 +101,34 @@ public class HospitalControlador {
     return null;
     }
     
+    public Citas ultimaAtencion(){
+        if(pilaPacientes.isEmpty()){
+            System.out.println("No hay citas atendidas, atienda primero una cita.");
+            return null;
+        }
+        
+        Citas ultimaAtencion = (Citas) pilaPacientes.top();
+        
+        return ultimaAtencion;
+    }
     
+    public void historialAtendido(){
+       
+        pilaPacientes.showStack();
+    }
     
+    public void citasPendientes(){
+        
+        colaPacientes.showQueue();
+        
+    }
     
+    public void guardarPacientesEpsCSV() {
+    Archivo.guardarPacientesEPS(listaEps, "pacientes_eps.csv");
+    }
     
-    
-    
-    
+    public void guardarPacientesSisbenCSV() {
+    Archivo.guardarPacientesSisben(listaSisben, "pacientes_Sisben.csv");
+    }
+
 }
